@@ -29,9 +29,10 @@ The analysis provided three distinct business strategies based on the precision-
 For a general-purpose campaign requiring both profitable growth and effective market penetration, we recommend **the Balanced Approach.** This strategy, optimized by the F1-score, delivers a strong ROI of 205.3% while still capturing 38.5% of potential subscribers. It provides the most robust and scalable plan for acquiring a healthy number of new customers without an excessive marketing spend.
 
 ### **Project Navigation**
-- **01_data_cleaning_and_EDA:** This notebook covers the full data cleaning process and exploratory analysis. 
-- **02_feature_engineering_and_modeling:** This notebook covers techniques applied for feature engineering and model training.
-- **03_business_impact_and_conclusion:** This notebook covers business analytics and the overall conclusion.
+
+- [**01_data_cleaning_and_EDA:**](./notebooks/01_data_cleaning_and_EDA.ipynb) This notebook covers the full data cleaning process and exploratory analysis. 
+- [**02_feature_engineering_and_modeling:**](./notebooks/02_feature_engineering_and_modeling.ipynb) This notebook covers techniques applied for feature engineering and model training.
+- [**03_business_impact_and_conclusion:**](./notebooks/03_business_impact_and_conclusion.ipynb) This notebook covers business analytics and the overall conclusion.
 
 ### **Technology Stack & Methods**
 - **Technology:** Python, Pandas, NumPy, Scikit-learn, Seaborn, Matplotlib, Joblib
