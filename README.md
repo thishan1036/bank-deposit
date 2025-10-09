@@ -3,7 +3,7 @@
 **Live App Demo:** [**bank-deposit-prediction.streamlit.app**](https://thisishan-bank-deposit-prediction.streamlit.app/)
 
 
-![Bank Deposit Prediction App Screenshot](../bank-deposit/app_screenshot.png)
+![Bank Deposit Prediction App Screenshot](./app_screenshot.png)
 
 ### **Project Summary**
 Banks spend significant marketing budget on broad, untargeted campaigns, leading to inefficient budget spend and high customer acquisition costs. This project builds and deploys a machine learning model that transforms marketing from a wide net into a precision spear, predicting which customers are most likely to subscribe to a term deposit.
