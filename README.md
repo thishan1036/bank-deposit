@@ -12,7 +12,7 @@ Banks spend significant marketing budget on broad, untargeted campaigns, leading
 The final model, a tuned Random Forest classifier, identified key predictors like client balance, age, and past campaign success. Based on a precision-recall analysis, the recommended **"Balanced Strategy"** delivers a strong **ROI of 205.3%** while still capturing a significant portion of potential subscribers.
 
 For a detailed walkthrough of the analysis and business scenarios, 
-[**View the full PDF Report: Boosting Marketing Efficiency.pdf**](./Boosting%20Marketing%20Efficiency.pdf)
+[**View the full PDF Report**](./Boosting%20Marketing%20Efficiency.pdf)
 
 ### **Project Navigation**
 - [**01_data_cleaning_and_EDA:**](./notebooks/01_data_cleaning_and_EDA.ipynb) This notebook covers the full data cleaning process and exploratory analysis. 
