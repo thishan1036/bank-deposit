@@ -3,11 +3,45 @@ import pandas as pd
 import joblib
 
 # load model and data
-model = joblib.load('models/tuned_rf_mod.joblib')
-scaler = joblib.load('models/scaler.joblib')
+try:
+    model = joblib.load('models/tuned_rf_mod.joblib')
+    scaler = joblib.load('models/scaler.joblib')
+    
+    X_test_scaled = pd.read_csv('data/X_test_scaled.csv')
+    model_cols = list(X_test_scaled.columns)
+except FileNotFoundError:
+    st.error('Model or data files not found.')
+    st.stop()
 
-X_test_scaled = pd.read_csv('data/X_test_scaled.csv')
-model_cols = X_test_scaled.columns
+# helper function to process inputs
+def preprocess_inputs(age, job, marital, education, default, balance, housing, loan, contact, pdays, previous, poutcome, all_columns):
+    binary_map = {'yes': 1, 'no': 0}
+    raw_data = {
+        'age': age,
+        'job': job,
+        'marital': marital,
+        'education': education,
+        'default': binary_map[default],
+        'balance': balance,
+        'housing': binary_map[housing],
+        'loan': binary_map[loan],
+        'contact': contact,
+        'pdays': pdays,
+        'previous': previous,
+        'poutcome': poutcome
+    }
+
+    input_df = pd.DataFrame([raw_data])
+    # one hot encoding
+    input_df = pd.get_dummies(input_df)
+    # match the model's expected columns
+    # fills missing columns with false
+    input_df = input_df.reindex(columns=all_columns, fill_value=False)
+
+    num_cols = ['age', 'balance', 'pdays', 'previous']
+    input_df[num_cols] = scaler.transform(input_df[num_cols])
+
+    return input_df
 
 # app title and description
 st.title('Bank Term Deposit Prediction')
@@ -44,39 +78,11 @@ with col5:
 
 poutcome = st.selectbox('Outcome of Previous Campaign', options=['unknown_outcome', 'failure', 'other', 'success'])
 
-# helper function to process inputs
-def preprocess_inputs(age, job, marital, education, default, balance, housing, loan, contact, pdays, previous, poutcome, all_columns):
-    binary_map = {'yes': 1, 'no': 0}
-    raw_data = {
-        'age': age,
-        'job': job,
-        'marital': marital,
-        'education': education,
-        'default': binary_map[default],
-        'balance': balance,
-        'housing': binary_map[housing],
-        'loan': binary_map[loan],
-        'contact': contact,
-        'pdays': pdays,
-        'previous': previous,
-        'poutcome': poutcome
-    }
 
-    input_df = pd.DataFrame([raw_data])
-    # one hot encoding
-    input_df = pd.get_dummies(input_df)
-    # match the model's expected columns
-    # fills missing columns with false
-    input_df = input_df.reindex(columns=all_columns, fill_value=False)
-
-    num_cols = ['age', 'balance', 'pdays', 'previous']
-    input_df[num_cols] = scaler.transform(input_df[num_cols])
-
-    return input_df
 
 # prediction button and output
 if st.button('Predict Subscription Probability'):
-    processed_input = preprocess_inputs(age, job, marital, education, default, balance, housing, loan, contact, pdays, previous, poutcome, model_columns)
+    processed_input = preprocess_inputs(age, job, marital, education, default, balance, housing, loan, contact, pdays, previous, poutcome, model_cols)
     # probability score
     prediction_prob = model.predict_proba(processed_input)[0][1]
 
