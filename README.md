@@ -3,6 +3,8 @@
 ### **Business Problem**
 Banks spend significant marketing budget on broad, untargeted campaigns, leading to inefficient budget spend and high customer acquisition costs. With limited marketing resources, they need to identify how to prioritize outreach, thus minimize missed opportunities and wasted effort on uninterested leads. The core challenge is to **transform marketing from a wide net into a precision spear.**
 
+[**View the full PDF Report: Boosting Marketing Efficiency.pdf**](./Boosting%20Marketing%20Efficiency.pdf)
+
 ### **Hypothesis & Proposed Solution**
 **Hypothesis:** Customers with certain demographic profiles (age, job stability) and positive past campaign reponses are significantly more likely to subscribe to term deposits. A logistic regression model can identify these high-probability segments.
 
