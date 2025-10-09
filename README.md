@@ -22,6 +22,7 @@ The final model, a tuned Random Forest classifier, identified key predictors lik
 **Why Balanced Strategy?**
 - **234% higher ROI** than High-Recall by reducing marketing cost by 74%.
 - **264% more revenue** than High-Precision by capturing 3.5x more subscribers.
+- With Balanced Strategy, for every **€1.00 spent** on targeted campaigns, the bank earns **€2.05 in profit.**
 - Provides the most scalable approach for both profitability and market penetration.
 
 For a detailed walkthrough of the analysis and business scenarios, see the [**full PDF Report.**](./Boosting%20Marketing%20Efficiency.pdf)
