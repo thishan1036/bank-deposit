@@ -2,17 +2,19 @@ import streamlit as st
 import pandas as pd
 import joblib
 
+# load model and data
 model = joblib.load('models/tuned_rf_mod.joblib')
 scaler = joblib.load('models/scaler.joblib')
 
 X_test_scaled = pd.read_csv('data/X_test_scaled.csv')
 model_cols = X_test_scaled.columns
 
+# app title and description
 st.title('Bank Term Deposit Prediction')
 st.write('This app predicts whether a customer will subscribe to a term deposit.')
 
+# input widgets
 st.header('Enter Customer Information:')
-
 col1, col2 = st.columns(2)
 
 with col1:
@@ -41,3 +43,49 @@ with col5:
     previous = st.number_input('Number of Contacts Before This Campaign', value=0)
 
 poutcome = st.selectbox('Outcome of Previous Campaign', options=['unknown_outcome', 'failure', 'other', 'success'])
+
+# helper function to process inputs
+def preprocess_inputs(age, job, marital, education, default, balance, housing, loan, contact, pdays, previous, poutcome, all_columns):
+    binary_map = {'yes': 1, 'no': 0}
+    raw_data = {
+        'age': age,
+        'job': job,
+        'marital': marital,
+        'education': education,
+        'default': binary_map[default],
+        'balance': balance,
+        'housing': binary_map[housing],
+        'loan': binary_map[loan],
+        'contact': contact,
+        'pdays': pdays,
+        'previous': previous,
+        'poutcome': poutcome
+    }
+
+    input_df = pd.DataFrame([raw_data])
+    # one hot encoding
+    input_df = pd.get_dummies(input_df)
+    # match the model's expected columns
+    # fills missing columns with false
+    input_df = input_df.reindex(columns=all_columns, fill_value=False)
+
+    num_cols = ['age', 'balance', 'pdays', 'previous']
+    input_df[num_cols] = scaler.transform(input_df[num_cols])
+
+    return input_df
+
+# prediction button and output
+if st.button('Predict Subscription Probability'):
+    processed_input = preprocess_inputs(age, job, marital, education, default, balance, housing, loan, contact, pdays, previous, poutcome, model_columns)
+    # probability score
+    prediction_prob = model.predict_proba(processed_input)[0][1]
+
+    # display the result
+    st.subheader('Prediction Result:')
+
+    st.write(f'**The predicted probability of subscription is: {prediction_prob:.1%}**')
+
+    if prediction_prob > .5:
+        st.success('This customer is likely to subscribe to a term deposit')
+    else:
+        st.error('This customer is not likely to subscribe to a term deposit')
