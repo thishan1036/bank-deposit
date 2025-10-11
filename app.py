@@ -55,10 +55,10 @@ with col1:
     education = st.selectbox('Education', options=['tertiary', 'secondary', 'unknown', 'primary'])
 
 with col2:
-    default = st.selectbox('Have Credit in Default?', options=['no', 'yes'])
+    default = st.selectbox('Has Credit in Default?', options=['no', 'yes'])
     balance = st.number_input('Average Yearly Balance (€)', value=1500)
-    housing = st.selectbox('Have Housing Loan?', options=['no', 'yes'])
-    loan = st.selectbox('Have Personal Loan?', options=['no', 'yes'])
+    housing = st.selectbox('Has Housing Loan?', options=['no', 'yes'])
+    loan = st.selectbox('Has Personal Loan?', options=['no', 'yes'])
 
 st.header('Previous Campaign Information:')
 col3, col4, col5 = st.columns(3)
