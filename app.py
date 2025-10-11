@@ -32,10 +32,7 @@ def preprocess_inputs(age, job, marital, education, default, balance, housing, l
     }
 
     input_df = pd.DataFrame([raw_data])
-    # one hot encoding
     input_df = pd.get_dummies(input_df)
-    # match the model's expected columns
-    # fills missing columns with false
     input_df = input_df.reindex(columns=all_columns, fill_value=False)
 
     num_cols = ['age', 'balance', 'pdays', 'previous']
@@ -50,7 +47,6 @@ st.write('This app predicts whether a customer will subscribe to a term deposit.
 # input widgets
 st.header('Enter Customer Information:')
 col1, col2 = st.columns(2)
-
 with col1:
     age = st.number_input('Age', min_value=18, max_value=100, value=40)
     job = st.selectbox('Job', options=['management', 'technician', ' entrepreneur', 'blue-collar', 'unknown', 'retired', 
@@ -59,14 +55,13 @@ with col1:
     education = st.selectbox('Education', options=['tertiary', 'secondary', 'unknown', 'primary'])
 
 with col2:
-    default = st.selectbox('Has Credit in Default?', options=['no', 'yes'])
+    default = st.selectbox('Have Credit in Default?', options=['no', 'yes'])
     balance = st.number_input('Average Yearly Balance (€)', value=1500)
-    housing = st.selectbox('Has Housing Loan?', options=['no', 'yes'])
-    loan = st.selectbox('Has Personal Loan?', options=['no', 'yes'])
+    housing = st.selectbox('Have Housing Loan?', options=['no', 'yes'])
+    loan = st.selectbox('Have Personal Loan?', options=['no', 'yes'])
 
 st.header('Previous Campaign Information:')
 col3, col4, col5 = st.columns(3)
-
 with col3:
     contact = st.selectbox('Contact Communication Type', options=['unknown', 'cellular', 'telephone'])
 
@@ -78,19 +73,14 @@ with col5:
 
 poutcome = st.selectbox('Outcome of Previous Campaign', options=['unknown_outcome', 'failure', 'other', 'success'])
 
-
-
 # prediction button and output
 if st.button('Predict Subscription Probability'):
     processed_input = preprocess_inputs(age, job, marital, education, default, balance, housing, loan, contact, pdays, previous, poutcome, model_cols)
     # probability score
     prediction_prob = model.predict_proba(processed_input)[0][1]
-
     # display the result
     st.subheader('Prediction Result:')
-
     st.write(f'**The predicted probability of subscription is: {prediction_prob:.1%}**')
-
     if prediction_prob > .5:
         st.success('This customer is likely to subscribe to a term deposit')
     else:
