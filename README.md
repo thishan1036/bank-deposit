@@ -1,7 +1,7 @@
 ## **Boosting Marketing Efficiency: A Predictive Web App for Bank Campaigns**
 
-**Live App Demo:** [**bank-deposit-prediction.streamlit.app**](https://thisishan-bank-deposit-prediction.streamlit.app/)
-
+* **Live App Demo:** [**bank-deposit-prediction.streamlit.app**](https://thisishan-bank-deposit-prediction.streamlit.app/)
+* **BI Dashboard (Tableau):** [**bank-deposit-prediction.public.tableau**](https://public.tableau.com/app/profile/young.han8377/viz/bank_deposit_tableau/PredictiveModelPerformance)
 
 ![Bank Deposit Prediction App Screenshot](./app_screenshot.png)
 
